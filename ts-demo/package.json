@@ -1,0 +1,26 @@
+{
+  "name": "ts-demo",
+  "version": "1.0.0",
+  "description": "Practica y aprendizaje de TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "tsNode": "cd src && ts-node index.ts",
+    "start": "nodemon",
+    "transpilation": "tsc",
+    "build:prod": "rimraf ./build && tsc",
+    "start:prod": "npm run build:prod && node build/index.js"
+  },
+  "keywords": [
+    "typescript",
+    "ts"
+  ],
+  "author": "@elias_vel",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.1.7",
+    "nodemon": "^2.0.22",
+    "rimraf": "^5.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}
