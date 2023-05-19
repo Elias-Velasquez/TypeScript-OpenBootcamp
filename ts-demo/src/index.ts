@@ -72,6 +72,32 @@ let tarea1: Tarea = {
 
 console.log(`Tarea: ${tarea1.nombre}`)
 
+//Asignacion multiple de variables
+let miTarea= {
+    titulo: 'Mi tarea',
+    estado: Estados.Completado,
+    importancia: 1
+}
+
+let { titulo: string , estado, importancia} = miTarea;
+
+//Spread operator
+let listaCompraLunes: string[] = ["Leche", "Papas"]
+let listaCompraMartes: string[] = [...listaCompraLunes, "Pan", "Arroz"]
+
+//en objetos
+let estadoApp = {
+    usuario: "admin",
+    session: 3,
+    jwt: "Bearer1231314"
+}
+
+let nuevoEstado = {
+    ...estadoApp,
+    session:4
+}
+
+
 //crear Types de typescript
 
 type Producto = {
@@ -126,3 +152,23 @@ listaTareasNueva.forEach((tarea: Tarea, index: number) => {
         console.log(`${index} - ${tarea.nombre}`);
 }
 );
+
+//for in es mas util en objetos o cadenas de texto
+//for each mejor para arrays
+
+//BUCLE WHILE
+while(tarea1.estado !== Estados.Completado){
+    if(tarea1.importancia == 5){
+        tarea1.estado = Estados.Completado;
+        break;
+    } else {
+    tarea1.importancia ++;
+}
+
+}
+
+
+do {
+    tarea1.importancia ++;
+    tarea1.estado = Estados.Completado
+} while(tarea1.estado !== Estados.Completado);
