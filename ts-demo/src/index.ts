@@ -1,5 +1,11 @@
 // Esto es un comentario
 
+import {setCookie, deleteCookie, deleteAllCookies, getCookieValue} from 'cookies-utils';
+import { type } from 'os';
+import { Curso } from './models/Curso';
+import { Estudiante } from './models/Estudiante';
+import { LISTA_CURSOS } from './mock/cursos.mock';
+
 console.log('Hola TypeScript');
 console.log('Adios Martin');
 
@@ -366,3 +372,96 @@ console.log(generatorSaga.next().value);//1 (lo ha hecho el worker)
 console.log(generatorSaga.next().value);//2 (lo ha hecho el worker)
 console.log(generatorSaga.next().value);//3 (lo ha hecho el worker)
 console.log(generatorSaga.next().value);//4 (lo ha hecho el watcher)
+
+//persistencia de datos
+//1. localstorage --> 
+//2. sessionstorage -->
+//3. cookies --> 
+
+//localstorage
+// function guardar(): void{
+
+// }
+
+
+const cookiesOptions ={
+    name: "name", //string.
+    value: "value", //string,
+    expires: new Date(2099, 10, 1), //optional Date,
+    path: "/", //optional string.
+};
+
+//Seteamos la cookie
+setCookie(cookiesOptions);
+
+//leer cookie
+let cookieLeida = getCookieValue("value")
+
+//eliminar
+deleteCookie("usuario");
+
+//Eliminar todas las cookies
+deleteAllCookies();
+
+
+//Clase temporizador
+class Temporizador {
+    public terminar?: (tiempo: number) => void;
+    public empezar(): void {
+        setTimeout(() => {
+            if(!this.terminar)return;
+            //cuando haya pasado el tiempo, se ejectura terminar()
+            this.terminar(Date.now());
+        }, 10000);
+    }
+}
+
+const miTemporizador: Temporizador = new Temporizador();
+
+//definimos la funcion del callback a ejecutar cuando termine el tiempo
+miTemporizador.terminar = (tiempo: number) => {
+    console.log("Evento terminado:", tiempo)
+}
+
+//Lanzamos el temporizador
+miTemporizador.empezar(); //Se inicia el timeout y cuando termina, se ejecuta terminar
+
+// setInterval(() => console.log("Tic"), 1000)
+
+
+//Eliminar la ejecucion ed la funcion
+delete miTemporizador.terminar;
+
+//Extender de event target
+// class Temporizador2 extends 
+
+// declarando clases en typescript
+
+
+
+    // Creamos un curso
+
+    const listaCursos: Curso[] = LISTA_CURSOS;
+    // listaCursos.push(cursoTS, cursoJS); //[lISTA DE CURSOS]
+
+    const martin: Estudiante = new Estudiante("Martin", listaCursos, "San Jose");
+
+console.log(`${martin.nombre} estudia:`);
+martin.cursos.forEach(curso => {
+    console.log(`- ${curso.nombre} {${curso.horas} horas}`); //- typescript (15 horas)
+})
+
+const cursoAngular: Curso = new Curso("Angular", 40);
+
+martin.cursos.push(cursoAngular); //Añadimos
+
+//Saber la instancia de un objeto/variable
+
+//- typeOf
+//- InstanceOf
+
+//Conocer las horas estudiadas
+martin.horasEstudiadas; //number
+
+martin.ID_Estudiante;
+
