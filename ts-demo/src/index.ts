@@ -5,6 +5,9 @@ import { type } from 'os';
 import { Curso } from './models/Curso';
 import { Estudiante } from './models/Estudiante';
 import { LISTA_CURSOS } from './mock/cursos.mock';
+import { Empleado1, Jefe } from './models/Persona';
+import { ITarea, Nivel } from './models/interfaces/persona.interface';
+import { Programar } from './models/Programar';
 
 console.log('Hola TypeScript');
 console.log('Adios Martin');
@@ -455,13 +458,141 @@ const cursoAngular: Curso = new Curso("Angular", 40);
 
 martin.cursos.push(cursoAngular); //Añadimos
 
-//Saber la instancia de un objeto/variable
 
-//- typeOf
-//- InstanceOf
 
 //Conocer las horas estudiadas
 martin.horasEstudiadas; //number
 
 martin.ID_Estudiante;
 
+//Saber la instancia de un objeto/variable
+
+//- typeOf
+//- InstanceOf
+
+let fechaNacimiento = new Date(1991,10,10);
+
+if(fechaNacimiento instanceof Date){
+    console.log("Es una instacia de Date")
+}
+
+if(martin instanceof Estudiante){
+    console.log("Martin es un Estudiante")
+}
+
+//Herencia y Polimorfismo
+
+
+let empleado1 = new Empleado1("Martin", "San Jose", 30, 2000);
+let empleado2 = new Empleado1("Pepe", "Garcia", 21, 1000);
+let empleado3 = new Empleado1("Juan", "Gonzalez", 40, 3000);
+
+
+
+let jefe = new Jefe("Pablo", "Garcia", 50);
+
+jefe.empleados.push(empleado1,empleado2,empleado3);
+
+// jefe.empleados.forEach((empleado:Empleado1) => {
+//     console.log(empleado.nombre);
+// })
+
+empleado1.saludar(); //especificado en empleado, este saludo es especial
+jefe.saludar();//herencia de persona, este es igual al de persona
+
+//programacion DAC. Principios SOLID
+//cuando dos clases tienen nombres exactamentes iguales
+//se pueden mezclar
+
+jefe.empleados.forEach((trabajador:Empleado1) => {
+    trabajador.saludar(); //especificado en Trabajador
+});
+
+// * Uso de Interfaces
+
+let programar: ITarea = {
+    titulo: '',
+    descripcion: 'Practicar con Katas para aprender a desarrollar con TS',
+    completada: undefined,
+    resumen: function (): string {
+        return `${this.titulo} - ${this.completada} - Nivel: ${this.urgencia}`
+    }
+}
+//click derecho autocompletar con todo lo q necesta
+
+console.log(programar.resumen())
+
+// Tarea de programacion (implementa ITarea)
+
+let programarTs = new Programar("Typescript", "Tarea de programacion en TS", false, Nivel.Bloqueante);
+console.log(programarTs.resumen());
+
+//Type, es una manera de definir un tipo propio y personalizado
+//que no requiere de constrcutor o metodos y que no es tan complejo como clase
+
+
+//Un interface, es un para definir algunos metodos obligatorios si o si
+//objetos mas complejos.
+
+//Class
+
+
+
+//DECORADORES
+//funciones declaras a traves de un simbolo - @
+//sirve para poner informacion e nuestras class
+
+//- Clases
+//- Parametros
+//- Metodos
+//- Propiedades
+
+function Override(label: string) {
+    return function(target: any, key:string){
+        Object.defineProperty(target, key, {
+            configurable: false,
+            get: () => label
+        })
+    }
+}
+
+class PruebaDecorador {
+    @Override('prueba') //llamar a la funcion Override
+    nombre: string = "Martin"
+}
+
+let prueba = new PruebaDecorador();
+
+console.log(prueba.nombre) // "Prueba"
+
+
+//Otra funcion para usarla como decorador
+function SoloLectura(target: any, key: string){
+    Object.defineProperty(target, key, {
+        writable: false
+    })
+}
+
+class PruebaSoloLectura {
+    @SoloLectura
+    nombre: string = '';
+}
+
+let pruebaLectura = new PruebaSoloLectura();
+pruebaLectura.nombre = "Martin";
+
+console.log(pruebaLectura.nombre)// undefined, ya que no se puede dar valor es solo de lectura
+
+//Decorador para parametros de un metodo
+function mostrarPosicion(target:any, key: string, parameterIndex: number){
+    console.log("Posicion", parameterIndex);
+}
+
+class PruebaMetodoDecorador {
+    prueba(a: string, @mostrarPosicion b: boolean){
+        console.log(b);
+    }
+}
+
+//Usamos el metodo con el parametro y su decorador
+new PruebaMetodoDecorador().prueba('Hola', false)
