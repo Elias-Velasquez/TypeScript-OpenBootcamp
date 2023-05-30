@@ -387,24 +387,24 @@ console.log(generatorSaga.next().value);//4 (lo ha hecho el watcher)
 // }
 
 
-const cookiesOptions ={
-    name: "name", //string.
-    value: "value", //string,
-    expires: new Date(2099, 10, 1), //optional Date,
-    path: "/", //optional string.
-};
+// const cookiesOptions ={
+//     name: "name", //string.
+//     value: "value", //string,
+//     expires: new Date(2099, 10, 1), //optional Date,
+//     path: "/", //optional string.
+// };
 
-//Seteamos la cookie
-setCookie(cookiesOptions);
+// //Seteamos la cookie
+// setCookie(cookiesOptions);
 
-//leer cookie
-let cookieLeida = getCookieValue("value")
+// //leer cookie
+// let cookieLeida = getCookieValue("value")
 
-//eliminar
-deleteCookie("usuario");
+// //eliminar
+// deleteCookie("usuario");
 
-//Eliminar todas las cookies
-deleteAllCookies();
+// //Eliminar todas las cookies
+// deleteAllCookies();
 
 
 //Clase temporizador
@@ -584,15 +584,15 @@ pruebaLectura.nombre = "Martin";
 console.log(pruebaLectura.nombre)// undefined, ya que no se puede dar valor es solo de lectura
 
 //Decorador para parametros de un metodo
-function mostrarPosicion(target:any, key: string, parameterIndex: number){
-    console.log("Posicion", parameterIndex);
-}
+// function mostrarPosicion(target:any, key: string, parameterIndex: number){
+//     console.log("Posicion", parameterIndex);
+// }
 
-class PruebaMetodoDecorador {
-    prueba(a: string, @mostrarPosicion b: boolean){
-        console.log(b);
-    }
-}
+// class PruebaMetodoDecorador {
+//     prueba(a: string, @mostrarPosicion b: boolean){
+//         console.log(b);
+//     }
+// }
 
-//Usamos el metodo con el parametro y su decorador
-new PruebaMetodoDecorador().prueba('Hola', false)
+// //Usamos el metodo con el parametro y su decorador
+// new PruebaMetodoDecorador().prueba('Hola', false)
